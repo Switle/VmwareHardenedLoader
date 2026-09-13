@@ -1,0 +1,27 @@
+name: Build for Windows 7
+
+on:
+  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой
+
+jobs:
+  build:
+    runs-on: windows-2019 # Используем старый сервер, где есть нужные компиляторы
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Configure and Build Driver
+      run: |
+        msbuild VmwareHardenedLoader.sln /p:Configuration=Release /p:Platform=x64 /p:TargetVersion=Win7
+
+    - name: Upload Compiled Files
+      uses: actions/upload-artifact@v4
+      with:
+        name: VmwareHardenedLoader-Win7-x64
+        path: |
+          **/*.sys
+          **/*.exe
