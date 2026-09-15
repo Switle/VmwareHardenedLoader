@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019 # Используем старый сервер, где есть нужные компиляторы
+    runs-on: windows-2022 # Используем старый сервер, где есть нужные компиляторы
 
     steps:
     - name: Checkout repository
